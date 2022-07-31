@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div>
+      <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom" style="background-color: black;">
+          <img src="{% block image_path %}{% endblock %}" alt="user" width="40px" height="32px" class="me-2" viewBox="0 0 118 94" role="img" style="margin: 10px;">
+          <span class="fs-4 d-flex align-items-center text-light text-decoration-none"><a class="me-3 py-2 text-light text-decoration-none" href="{{ url_for('cliente') }}">Bienvenido {{ name }}</a></span>
+        <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+          {% block reporte %}{% endblock %}
+          <a class="me-3 py-2 text-light text-decoration-none" href="{{ url_for('logout') }}">Cerrar Sesión</a>
+        </nav>
+      </div>
+  </div>
+{% endblock %}

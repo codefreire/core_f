@@ -1,0 +1,47 @@
+{% extends '_navbar.html' %}
+{% from 'bootstrap5/form.html' import render_field %}
+
+{% block title %}
+    {{ super() }}banco
+{% endblock %}
+
+{% block styles %}
+    {{ super() }}
+{% endblock %}
+
+{% block content %}
+    {{ super() }}
+    <div class="container my-5" style="background-color: white;">
+        <br>
+        <h1>Nuevo Préstamo</h1>
+        <br>
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+                <form class="form-signin" method="POST" action="/banco">
+                    {{ form.csrf_token() }}
+                    <div class="form-floating text-start">
+                        {{ render_field(form.nombre) }}
+                    </div>
+                    <div class="form-floating text-start">
+                        {{ render_field(form.monto) }}
+                    </div>
+                    <div class="form-floating text-start">
+                        {{ render_field(form.interes) }}
+                    </div>
+                    <div class="form-floating text-start">
+                        {{ render_field(form.plazo) }}
+                    </div>
+                    <button class="w-100 btn btn-lg btn-primary" type="submit">Crear Préstamo</button>
+                </form>
+            </div>
+            <div class="col-4"></div>
+        </div>
+        <br>
+        <br>
+    </div>
+{% endblock %}
+
+{% block image_path %}
+    {{ url_for('static', filename='img/logo.png') }}
+{% endblock %}

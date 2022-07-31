@@ -1,0 +1,21 @@
+{% from 'bootstrap5/utils.html' import render_messages %}
+
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="core_f">
+        <meta name="author" content="Carlos Freire">
+        <title>{% block title %}core | {% endblock %}</title>
+        {% block styles %}
+            {{ bootstrap.load_css() }}
+        {% endblock  %}
+    </head>
+    <body class="text-center" style="background-color: lightblue;">
+        {% block content %}{% endblock %}
+        {{ render_messages(dismissible=True) }}
+        {{ bootstrap.load_js() }}
+    </body>
+</html>

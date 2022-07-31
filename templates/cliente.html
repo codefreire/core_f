@@ -1,0 +1,97 @@
+{% extends '_navbar.html' %}
+{% from 'bootstrap5/form.html' import render_field %}
+
+{% block title %}
+    {{ super() }}cliente
+{% endblock %}
+
+{% block styles %}
+    {{ super() }}
+{% endblock %}
+
+{% block reporte %}
+    {% if form != None %}
+        <a class="me-3 py-2 text-light text-decoration-none" href="{{ url_for('reporte') }}">Reporte</a>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {{ super() }}
+    <div class="container my-5" style="background-color: white;">
+        <br>
+        {% if form == None %}
+            <h1>No tienes préstamos =D</h1>
+        {% else %}
+            {% if form2 != None %}
+                <div class="row">
+                    <div class="col-4"></div>
+                    <div class="col-4">
+                        <form class="form-signin" method="POST" action="/cliente">
+                            {{ form.csrf_token() }}
+                            <div class="row">        
+                                <div class="col-8 my-2">
+                                    {{ form2.opts }}
+                                </div>
+                                <div class="col-4">
+                                    <button class="w-100 btn btn-lg btn-primary" type="submit">Aceptar</button>
+                                </div>
+                            </div>
+                            <br><br><br>
+                        </form>
+                    </div>
+                    <div class="col-4"></div>
+                </div>
+            {% endif %}
+            {% if is_prestamo == True %}
+                <h1>Amortización</h1>
+                <div class="row">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                            <th scope="col">Periodo</th>
+                            <th scope="col">Cuota</th>
+                            <th scope="col">Capital Inicio</th>
+                            <th scope="col">Interés</th>
+                            <th scope="col">Capital</th>
+                            <th scope="col">Saldo Final</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for d in data %}
+                                <tr>
+                                    <th scope="row">{{ d[0] }}</th>
+                                    <td>{{ d[1] }}</td>
+                                    <td>{{ d[2] }}</td>
+                                    <td>{{ d[3] }}</td>
+                                    <td>{{ d[4] }}</td>
+                                    <td>{{ d[5] }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-4"></div>
+                    <div class="col-4">
+                        <form class="form-signin" method="POST" action="/cliente">
+                            {{ form.csrf_token() }}
+                            <div class="row">
+                                <div class="form-floating col-9 text-start">
+                                    {{ render_field(form.pago) }}
+                                </div>
+                                <div class="col-3 my-4">
+                                    <button class="w-100 btn btn-lg btn-primary" type="submit">Pagar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-4"></div>
+                </div>
+            {% endif %}    
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block image_path %}
+    {{ url_for('static', filename='img/user.png') }}
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends '_navbar.html' %}
+{% from 'bootstrap5/form.html' import render_field %}
+
+{% block title %}
+    {{ super() }}cliente
+{% endblock %}
+
+{% block styles %}
+    {{ super() }}
+{% endblock %}
+
+{% block reporte %}
+    <a class="me-3 py-2 text-light text-decoration-none" href="{{ url_for('reporte') }}">Reporte</a>
+{% endblock %}
+
+{% block content %}
+    {{ super() }}
+    <div class="container my-5" style="background-color: white;">
+        <div class="row">
+            <div class="col-4" style="background-color: rgb(51, 47, 44);">
+                <br>
+                <form class="form-signin" method="POST" action="/reporte">
+                    <img src="{{ url_for('static', filename='img/reporte.png') }}" alt="logo banco" height="25%" width="25%">
+                    <br>
+                    {{ form.csrf_token() }}
+                    <div class="form-floating text-start" style="color: white;">
+                        {{ render_field(form.valor_inicio) }}
+                    </div>
+                    <div class="form-floating text-start" style="color: white;">
+                        {{ render_field(form.valor_fin) }}
+                    </div>
+                    <button class="w-100 btn btn-lg btn-primary" type="submit">Generar Reporte</button>
+                </form>
+                <br>
+            </div>
+            <div class="col-8" style="background-color: rgb(162, 202, 223);">
+                <br>
+                <h3 style="font-weight: bold;">REPORTE CUOTAS ENTRE VALORES</h3>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                        <th scope="col">Periodo</th>
+                        <th scope="col">Cuota</th>
+                        <th scope="col">Capital Inicio</th>
+                        <th scope="col">Interés</th>
+                        <th scope="col">Capital</th>
+                        <th scope="col">Saldo Final</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for d in data %}
+                            <tr>
+                                <th scope="row">{{ d[0] }}</th>
+                                <td>{{ d[1] }}</td>
+                                <td>{{ d[2] }}</td>
+                                <td>{{ d[3] }}</td>
+                                <td>{{ d[4] }}</td>
+                                <td>{{ d[5] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block image_path %}
+    {{ url_for('static', filename='img/user.png') }}
+{% endblock %}

@@ -1,0 +1,9 @@
+flask
+flask-sqlalchemy
+flask-admin
+bootstrap-flask
+flask-wtf
+flask-login
+mysqlclient
+email-validator
+wtforms-sqlalchemy
