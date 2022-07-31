@@ -1,7 +1,7 @@
 from flask import redirect, render_template, url_for, flash, request, session
 from flask_wtf import FlaskForm
 from app import app, db
-from models.forms import LoginForm, PrestamoForm, PagoForm, ReporteForm
+from models.forms import LoginForm, PrestamoForm, ReporteForm
 from models.models import Usuario, Prestamo
 from models.credito import Credito
 from controllers.service import Calculadora
@@ -73,12 +73,12 @@ def cliente():
     name = current_user.usuario_nombre
     data = []
     is_prestamo = False
-    form = None
     form2 = None
+    flag = False
     usuario = Prestamo.query.filter_by(usuario_nombre=name).first()
     if usuario != None:
         form2 = ClienteForm()
-        form = PagoForm()
+        flag = True
     if request.method == 'POST' and form2.validate_on_submit:
         monto = form2.opts.data.prestamo_monto
         interes = form2.opts.data.prestamo_interes
@@ -89,11 +89,8 @@ def cliente():
         session['plazo'] = plazo
         data = Calculadora.alemana(prestamo)
         is_prestamo = True
-        if form.pago.data != None:
-            data = Calculadora.pagar(form.pago.data, prestamo)
-            return render_template('cliente.html', is_prestamo=is_prestamo, data=data, name=name, form=form, form2=form2)
-        return render_template('cliente.html', is_prestamo=is_prestamo, data=data, name=name, form=form, form2=form2)
-    return render_template('cliente.html', is_prestamo=is_prestamo, data=data, name=name, form=form, form2=form2)
+        return render_template('cliente.html', is_prestamo=is_prestamo, data=data, name=name, form2=form2, flag=flag)
+    return render_template('cliente.html', is_prestamo=is_prestamo, data=data, name=name, form2=form2, flag=flag)
 
 @app.route('/banco', methods=['GET', 'POST'])
 @login_required

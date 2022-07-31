@@ -37,26 +37,3 @@ class Calculadora:
             prestamo.get_periodos()[cont] = aux
             cont += 1
         return prestamo.get_periodos() 
-
-    @staticmethod
-    def pagar(cancelar, prestamo):
-        cont = 0
-        por_pagar = 0.0
-        calculo = Calculadora.alemana(prestamo)
-        while cont < len(calculo):
-            if calculo[cont].is_pagado() == False:
-                if cancelar == calculo[cont].get_cuota():
-                    calculo[cont].set_pagado(True)
-                    calculo[cont].set_pendiente(0.0)
-                    cancelar = 0.0
-                if cancelar < calculo[cont].get_cuota():
-                    por_pagar = calculo[cont].get_cuota()-cancelar
-                    calculo[cont].set_pendiente(por_pagar)
-                    cancelar = 0.0
-                if cancelar > calculo[cont].get_cuota():
-                    calculo[cont].set_pagado(True)
-                    por_pagar = cancelar-calculo[cont].get_cuota()
-                    calculo[cont].set_pendiente(por_pagar)
-                    cancelar = por_pagar
-            cont += 1
-        return calculo

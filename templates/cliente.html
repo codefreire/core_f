@@ -1,5 +1,4 @@
 {% extends '_navbar.html' %}
-{% from 'bootstrap5/form.html' import render_field %}
 
 {% block title %}
     {{ super() }}cliente
@@ -10,7 +9,7 @@
 {% endblock %}
 
 {% block reporte %}
-    {% if form != None %}
+    {% if flag != False %}
         <a class="me-3 py-2 text-light text-decoration-none" href="{{ url_for('reporte') }}">Reporte</a>
     {% endif %}
 {% endblock %}
@@ -19,7 +18,7 @@
     {{ super() }}
     <div class="container my-5" style="background-color: white;">
         <br>
-        {% if form == None %}
+        {% if flag == False %}
             <h1>No tienes préstamos =D</h1>
         {% else %}
             {% if form2 != None %}
@@ -27,7 +26,7 @@
                     <div class="col-4"></div>
                     <div class="col-4">
                         <form class="form-signin" method="POST" action="/cliente">
-                            {{ form.csrf_token() }}
+                            {{ form2.csrf_token() }}
                             <div class="row">        
                                 <div class="col-8 my-2">
                                     {{ form2.opts }}
@@ -69,23 +68,6 @@
                             {% endfor %}
                         </tbody>
                     </table>
-                </div>
-                <div class="row">
-                    <div class="col-4"></div>
-                    <div class="col-4">
-                        <form class="form-signin" method="POST" action="/cliente">
-                            {{ form.csrf_token() }}
-                            <div class="row">
-                                <div class="form-floating col-9 text-start">
-                                    {{ render_field(form.pago) }}
-                                </div>
-                                <div class="col-3 my-4">
-                                    <button class="w-100 btn btn-lg btn-primary" type="submit">Pagar</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-4"></div>
                 </div>
             {% endif %}    
         {% endif %}

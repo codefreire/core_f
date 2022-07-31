@@ -12,9 +12,6 @@ class PrestamoForm(FlaskForm):
     interes = DecimalField('Interes', validators=[InputRequired()], places=2)
     plazo = IntegerField('Plazo', validators=[InputRequired()])
 
-class PagoForm(FlaskForm):
-    pago = DecimalField('Ingrese dinero', validators=[InputRequired()], places=2)
-
 class ReporteForm(FlaskForm):
     valor_inicio = DecimalField('Valor mínimo cuota', validators=[InputRequired()], places=2)
     valor_fin = DecimalField('Valor máximo cuota', validators=[InputRequired()], places=2)

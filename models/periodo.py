@@ -6,17 +6,6 @@ class Periodo:
         self.interes = 0.0
         self.abono_capital = 0.0
         self.saldo = 0.0
-        self.pagado = False
-        self.pendiente = 0.0
-    
-    def is_pagado(self):
-        return self.pagado
-    
-    def set_pagado(self, pagado):
-        self.pagado = pagado
-
-    def set_pendiente(self, pendiente):
-        self.pendiente = pendiente
     
     def get_cantidad(self):
         return self.cantidad
